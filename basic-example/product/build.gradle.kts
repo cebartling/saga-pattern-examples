@@ -28,7 +28,7 @@ dependencies {
     implementation("org.liquibase:liquibase-core")
     implementation("org.springframework.kafka:spring-kafka")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("io.micrometer:micrometer-registry-datadog")
+//    runtimeOnly("io.micrometer:micrometer-registry-datadog")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")

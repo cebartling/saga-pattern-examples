@@ -1,14 +1,23 @@
 version: '3.7'
 services:
-  postgres:
+  product-db:
     image: postgres:13-alpine
-    ports:
-      - "15432:5432"
+    hostname: product-db
+    container_name: product-db
+    # command: postgres -c 'encrypt.key=dfd76a78d6fasdf68df'
     restart: always
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - ./product/postgresql/init.sh:/docker-entrypoint-initdb.d/0001-initialization.sh
+      # Persist the data between container invocations
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 15432:5432
     environment:
-      POSTGRES_PASSWORD: "p4$$w0rD"
+      POSTGRES_USER: product
+      POSTGRES_PASSWORD: product
+      ANON: web_anon
+      AUTHENTICATOR: authenticator
 
 volumes:
-  db_data:
+  db-data:
+    driver: local

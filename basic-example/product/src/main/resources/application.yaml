@@ -1,0 +1,38 @@
+logging:
+  level:
+    .: ERROR
+    org.springframework: ERROR
+    com.pintailconsultingllc.product: ERROR
+
+spring:
+  application:
+    name: "Product microservice"
+  datasource:
+    url: ${JDBC_URL}
+    username: ${JDBC_USERNAME}
+    password: ${JDBC_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+    show-sql: true
+  liquibase:
+    enabled: false
+    changeLog: classpath:db/db.changelog-master.xml
+
+---
+
+spring:
+  profile: local
+  liquibase:
+    enabled: false
+
+
+logging:
+  level:
+    .: INFO
+    org.springframework: INFO
+    com.pintailconsultingllc.product: INFO
