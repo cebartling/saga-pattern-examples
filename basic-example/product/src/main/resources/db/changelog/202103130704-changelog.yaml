@@ -43,3 +43,14 @@ databaseChangeLog:
                   type: varchar(30)
                   constraints:
                     nullable: false
+              - column:
+                  name: version
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    default: false
