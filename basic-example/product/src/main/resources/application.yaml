@@ -39,4 +39,4 @@ logging:
   level:
     .: INFO
     org.springframework: INFO
-    com.pintailconsultingllc.product: INFO
+    com.pintailconsultingllc.product: DEBUG
