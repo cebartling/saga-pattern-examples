@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.4.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
+//    id("springdoc-openapi-gradle-plugin") version "1.3.0"
     kotlin("jvm") version "1.4.30"
     kotlin("plugin.spring") version "1.4.30"
     kotlin("plugin.jpa") version "1.4.30"
@@ -28,6 +29,8 @@ dependencies {
     implementation("org.liquibase:liquibase-core")
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.junit.jupiter:junit-jupiter:5.4.2")
+    implementation("org.springdoc:springdoc-openapi-ui:1.5.5")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 //    runtimeOnly("io.micrometer:micrometer-registry-datadog")
     runtimeOnly("org.postgresql:postgresql")

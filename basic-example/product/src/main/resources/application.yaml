@@ -27,6 +27,12 @@ spring:
       name: product-user
       password: Yh5bnd8%7gHHtrs
 
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    filter: true
+    deep-linking: true
+
 ---
 
 spring:
