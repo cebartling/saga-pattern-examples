@@ -30,6 +30,8 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.junit.jupiter:junit-jupiter:5.4.2")
     implementation("org.springdoc:springdoc-openapi-ui:1.5.5")
+    implementation("org.springdoc:springdoc-openapi-data-rest:1.5.5")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.5.5")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 //    runtimeOnly("io.micrometer:micrometer-registry-datadog")
