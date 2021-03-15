@@ -22,6 +22,10 @@ spring:
   liquibase:
     enabled: false
     changeLog: classpath:db/db.changelog-master.yaml
+  security:
+    user:
+      name: product-user
+      password: Yh5bnd8%7gHHtrs
 
 ---
 

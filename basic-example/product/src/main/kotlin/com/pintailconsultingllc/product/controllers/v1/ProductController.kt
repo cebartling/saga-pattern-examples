@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*
 import java.net.URI
 import java.util.*
 
-@RestController("/api/v1/products")
+@RestController
+@RequestMapping("/api/v1/products")
 class ProductController(val productService: ProductService) {
 
     @GetMapping
     fun getProductsPage(
-        @RequestParam("page") pageable: Pageable
+        pageable: Pageable
     ): Page<Product> {
         return productService.getProductPage(pageable)
     }

@@ -15,7 +15,7 @@ class ProductService(val productRepository: ProductRepository) {
     }
 
     fun createProduct(name: String, sku: String): Product {
-        val product = Product(UUID.randomUUID(), name, sku)
+        val product = Product(UUID.randomUUID(), 0, name, sku)
         return productRepository.save(product)
     }
 

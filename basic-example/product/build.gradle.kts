@@ -27,6 +27,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.liquibase:liquibase-core")
     implementation("org.springframework.kafka:spring-kafka")
+    implementation("org.junit.jupiter:junit-jupiter:5.4.2")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 //    runtimeOnly("io.micrometer:micrometer-registry-datadog")
     runtimeOnly("org.postgresql:postgresql")

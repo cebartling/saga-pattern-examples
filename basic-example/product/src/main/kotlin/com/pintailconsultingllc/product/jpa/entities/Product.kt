@@ -16,6 +16,8 @@ class Product(
     @Id @GeneratedValue
     val id: UUID = UUID.randomUUID(),
 
+    @Version val version: Int = 0,
+
     var name: String,
     var sku: String,
     var deleted: Boolean = false,
@@ -35,6 +37,4 @@ class Product(
     @Column(name = "updated_by")
     @LastModifiedBy
     var updatedBy: String = "system",
-
-    @Version var version: Int = 0,
 )

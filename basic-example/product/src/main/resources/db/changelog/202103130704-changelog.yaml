@@ -14,6 +14,12 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: version
+                  type: int
+                  constraints:
+                    nullable: false
+                    default: 0
+              - column:
                   name: name
                   type: varchar(1024)
                   constraints:
@@ -23,6 +29,12 @@ databaseChangeLog:
                   type: varchar(20)
                   constraints:
                     nullable: false
+              - column:
+                  name: deleted
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    default: false
               - column:
                   name: created_at
                   type: timestamp
@@ -43,14 +55,3 @@ databaseChangeLog:
                   type: varchar(30)
                   constraints:
                     nullable: false
-              - column:
-                  name: version
-                  type: int
-                  constraints:
-                    nullable: false
-              - column:
-                  name: deleted
-                  type: boolean
-                  constraints:
-                    nullable: false
-                    default: false
