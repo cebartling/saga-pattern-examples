@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
@@ -33,6 +34,7 @@ class ProductController(val productService: ProductService) {
             ApiResponse(responseCode = "400", description = "Bad request", content = [Content()]),
             ApiResponse(responseCode = "404", description = "Did not find any products", content = [Content()])]
     )
+    @ResponseStatus(code = HttpStatus.OK, reason = "Success! Found products.")
     @GetMapping
     fun getProductsPage(
         pageable: Pageable

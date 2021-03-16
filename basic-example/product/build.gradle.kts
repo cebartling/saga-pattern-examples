@@ -3,7 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.4.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-//    id("springdoc-openapi-gradle-plugin") version "1.3.0"
+//    id("com.github.johnrengelman.processes") version "0.5.0"
+//    id("org.springdoc.openapi-gradle-plugin") version "1.3.0"
     kotlin("jvm") version "1.4.30"
     kotlin("plugin.spring") version "1.4.30"
     kotlin("plugin.jpa") version "1.4.30"
@@ -31,6 +32,7 @@ dependencies {
     implementation("org.junit.jupiter:junit-jupiter:5.4.2")
     implementation("org.springdoc:springdoc-openapi-ui:1.5.5")
     implementation("org.springdoc:springdoc-openapi-data-rest:1.5.5")
+    implementation("org.springdoc:springdoc-openapi-security:1.5.5")
     implementation("org.springdoc:springdoc-openapi-kotlin:1.5.5")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
