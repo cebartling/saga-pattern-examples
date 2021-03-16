@@ -1,5 +1,6 @@
 package com.pintailconsultingllc.product.jpa.entities
 
+
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
@@ -11,15 +12,14 @@ import javax.persistence.*
 
 @Entity
 @EntityListeners(AuditingEntityListener::class)
-@Table(name = "products")
-class Product(
+@Table(name = "categories")
+class Category(
     @Id @GeneratedValue
     val id: UUID = UUID.randomUUID(),
 
     @Version val version: Int = 0,
 
     var name: String,
-    var sku: String,
     var deleted: Boolean = false,
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -39,5 +39,5 @@ class Product(
     var updatedBy: String = "system",
 
     @ManyToMany
-    var categories: Set<Category> = emptySet()
+    var products: Set<Product> = emptySet()
 )

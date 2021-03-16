@@ -4,6 +4,7 @@ databaseChangeLog:
       author: bartling
       changes:
         - createTable:
+            schemaName: public
             tableName: products
             columns:
               - column:
@@ -55,3 +56,18 @@ databaseChangeLog:
                   type: varchar(30)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 2
+      author: bartling
+      changes:
+        - createIndex:
+            clustered: true
+            columns:
+              - column:
+                  descending: true
+                  name: sku
+            indexName: sku_products_idx
+            schemaName: public
+            tableName: products
+            unique: true
+
