@@ -6,7 +6,7 @@ logging:
 
 spring:
   application:
-    name: "Product microservice"
+    name: "Product catalog microservice"
   datasource:
     url: ${JDBC_URL}
     username: ${JDBC_USERNAME}
@@ -16,6 +16,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     properties:
       hibernate:
+        default_schema: public
         temp:
           use_jdbc_metadata_defaults: false
     show-sql: true

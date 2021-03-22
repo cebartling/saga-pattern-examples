@@ -2,8 +2,8 @@ version: '3.7'
 services:
   product-db:
     image: postgres:13-alpine
-    hostname: product-db
-    container_name: product-db
+    hostname: saga-example-db
+    container_name: saga-example-db
     restart: always
     volumes:
       - ./product/postgresql/init.sh:/docker-entrypoint-initdb.d/0001-initialization.sh
@@ -11,8 +11,8 @@ services:
     ports:
       - 15432:5432
     environment:
-      POSTGRES_USER: product
-      POSTGRES_PASSWORD: product
+      POSTGRES_USER: saga-example
+      POSTGRES_PASSWORD: saga-example
       ANON: web_anon
       AUTHENTICATOR: authenticator
 
