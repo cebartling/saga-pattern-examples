@@ -13,8 +13,6 @@ services:
     environment:
       POSTGRES_USER: saga-example
       POSTGRES_PASSWORD: saga-example
-      ANON: web_anon
-      AUTHENTICATOR: authenticator
 
 volumes:
   db-data:
