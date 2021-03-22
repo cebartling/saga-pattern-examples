@@ -10,12 +10,10 @@ import java.util.*
 @Service
 class ProductService(val productRepository: ProductRepository) {
 
-    fun getProductPage(pageable: Pageable): Page<Product> {
-        return productRepository.findAll(pageable)
-    }
+    fun getProductPage(pageable: Pageable) = productRepository.findAll(pageable)
 
     fun createProduct(name: String, sku: String): Product {
-        val product = Product(UUID.randomUUID(), 0, name, sku)
+        val product = Product(name = name, sku = sku)
         return productRepository.save(product)
     }
 

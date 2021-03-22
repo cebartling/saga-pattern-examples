@@ -1,5 +1,6 @@
 package com.pintailconsultingllc.product.controllers.v1
 
+import com.pintailconsultingllc.product.controllers.dto.ProductDTO
 import com.pintailconsultingllc.product.controllers.inputs.ProductInput
 import com.pintailconsultingllc.product.jpa.entities.Product
 import com.pintailconsultingllc.product.services.ProductService
@@ -9,9 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
@@ -34,13 +33,10 @@ class ProductController(val productService: ProductService) {
             ApiResponse(responseCode = "400", description = "Bad request", content = [Content()]),
             ApiResponse(responseCode = "404", description = "Did not find any products", content = [Content()])]
     )
-    @ResponseStatus(code = HttpStatus.OK, reason = "Success! Found products.")
     @GetMapping
     fun getProductsPage(
         pageable: Pageable
-    ): Page<Product> {
-        return productService.getProductPage(pageable)
-    }
+    ) = ResponseEntity.ok(productService.getProductPage(pageable).map { ProductDTO.toDataTransferObject(it) })
 
     @Operation(summary = "Create a new product.")
     @ApiResponses(
@@ -58,7 +54,7 @@ class ProductController(val productService: ProductService) {
     @PostMapping
     fun createProduct(
         @RequestBody productInput: ProductInput
-    ): ResponseEntity<Product> {
+    ): ResponseEntity<ProductDTO> {
         val product = productService.createProduct(productInput.name, productInput.sku)
         val location = URI("/api/v1/products/${product.id}")
         return ResponseEntity.created(location).build()
@@ -76,7 +72,7 @@ class ProductController(val productService: ProductService) {
     fun updateProduct(
         @PathVariable id: UUID,
         @RequestBody productInput: ProductInput
-    ): ResponseEntity<Product> {
+    ): ResponseEntity<ProductDTO> {
         productService.updateProduct(id, productInput.name, productInput.sku)
         return ResponseEntity.noContent().build()
     }
@@ -91,7 +87,7 @@ class ProductController(val productService: ProductService) {
     @DeleteMapping("/{id}")
     fun deleteProduct(
         @PathVariable id: UUID
-    ): ResponseEntity<Product> {
+    ): ResponseEntity<ProductDTO> {
         productService.deleteProduct(id)
         return ResponseEntity.noContent().build()
     }
