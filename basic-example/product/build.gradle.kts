@@ -34,6 +34,8 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-data-rest:1.5.5")
     implementation("org.springdoc:springdoc-openapi-security:1.5.5")
     implementation("org.springdoc:springdoc-openapi-kotlin:1.5.5")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.0.6")
+    implementation("com.opencsv:opencsv:5.4")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 //    runtimeOnly("io.micrometer:micrometer-registry-datadog")

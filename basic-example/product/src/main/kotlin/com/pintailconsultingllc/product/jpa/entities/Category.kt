@@ -19,7 +19,10 @@ class Category(
 
     @Version val version: Int = 0,
 
+    @Column(name = "name", nullable = false)
     var name: String,
+
+    @Column(name = "deleted", nullable = false)
     var deleted: Boolean = false,
 
     @Column(name = "created_at", nullable = false, updatable = false)
