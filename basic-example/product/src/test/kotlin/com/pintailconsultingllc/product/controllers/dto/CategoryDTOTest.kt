@@ -1,18 +1,20 @@
 package com.pintailconsultingllc.product.controllers.dto
 
-import com.pintailconsultingllc.product.jpa.entities.Category
+import com.pintailconsultingllc.product.factories.createCategoryEntity
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import java.time.LocalDateTime
 import java.util.*
 
 @DisplayName("CategoryDTO unit tests")
 internal class CategoryDTOTest {
 
-    private val entity = createCategoryEntity()
+    private val entity = createCategoryEntity(
+        id = UUID.randomUUID(),
+        name = "Foobar"
+    )
     private var categoryDTO: CategoryDTO? = null
 
     @Nested
@@ -58,17 +60,5 @@ internal class CategoryDTOTest {
         fun `should set the data transfer object's updated by string`() {
             assertThat(categoryDTO?.updatedBy).isEqualTo(entity.updatedBy)
         }
-    }
-
-    private fun createCategoryEntity(): Category {
-        return Category(
-            id = UUID.randomUUID(),
-            name = "foobar category",
-            version = 12,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now(),
-            createdBy = "system",
-            updatedBy = "system"
-        )
     }
 }

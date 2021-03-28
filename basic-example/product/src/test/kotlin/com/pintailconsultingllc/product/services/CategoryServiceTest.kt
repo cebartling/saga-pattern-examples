@@ -1,6 +1,7 @@
 package com.pintailconsultingllc.product.services
 
 import com.ninjasquad.springmockk.MockkBean
+import com.pintailconsultingllc.product.factories.createCategoryEntity
 import com.pintailconsultingllc.product.jpa.entities.Category
 import com.pintailconsultingllc.product.jpa.repositories.CategoryRepository
 import io.mockk.every
@@ -53,6 +54,7 @@ internal class CategoryServiceTest {
     @DisplayName("createCategory")
     inner class CreateCategory {
         private val expectedCategory = createCategoryEntity(
+            id = expectedId,
             name = expectedName
         )
         private var actualCategory: Category? = null
@@ -79,6 +81,7 @@ internal class CategoryServiceTest {
     @DisplayName("updateCategory")
     inner class UpdateCategory {
         private val expectedCategory = createCategoryEntity(
+            id = expectedId,
             name = "Barfoo"
         )
         private var actualCategory: Category? = null
@@ -112,6 +115,7 @@ internal class CategoryServiceTest {
     inner class DeleteCategory {
         private val categorySlot = slot<Category>()
         private val expectedCategory = createCategoryEntity(
+            id = expectedId,
             name = expectedName
         )
 
@@ -137,17 +141,5 @@ internal class CategoryServiceTest {
         fun `should soft delete the persistent category entity`() {
             assertTrue(categorySlot.captured.deleted)
         }
-    }
-
-    private fun createCategoryEntity(name: String): Category {
-        return Category(
-            id = expectedId,
-            name = name,
-            version = 0,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now(),
-            createdBy = "system",
-            updatedBy = "system"
-        )
     }
 }

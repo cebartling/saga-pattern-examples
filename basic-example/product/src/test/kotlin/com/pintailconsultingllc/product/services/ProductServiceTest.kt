@@ -1,6 +1,7 @@
 package com.pintailconsultingllc.product.services
 
 import com.ninjasquad.springmockk.MockkBean
+import com.pintailconsultingllc.product.factories.createProductEntity
 import com.pintailconsultingllc.product.jpa.entities.Product
 import com.pintailconsultingllc.product.jpa.repositories.ProductRepository
 import io.mockk.every
@@ -61,7 +62,11 @@ internal class ProductServiceTest {
     @Nested
     @DisplayName("createProduct")
     inner class CreateProduct {
-        private val expectedProduct = createProductEntity(name = expectedName, sku = expectedSku)
+        private val expectedProduct = createProductEntity(
+            id = expectedId,
+            name = expectedName,
+            sku = expectedSku
+        )
         private var actualProduct: Product? = null
 
         @BeforeEach
@@ -89,6 +94,7 @@ internal class ProductServiceTest {
     @DisplayName("updateProduct")
     inner class UpdateProduct {
         private val expectedProduct = createProductEntity(
+            id = expectedId,
             name = "Barfoo",
             sku = expectedSku,
         )
@@ -127,6 +133,7 @@ internal class ProductServiceTest {
     inner class DeleteProduct {
         private val productSlot = slot<Product>()
         private val expectedProduct = createProductEntity(
+            id = expectedId,
             name = expectedName,
             sku = expectedSku
         )
@@ -153,18 +160,5 @@ internal class ProductServiceTest {
         fun `should save the modified persistent Product entity to the database`() {
             verify { productRepository.save(any()) }
         }
-    }
-
-    private fun createProductEntity(name: String, sku: String): Product {
-        return Product(
-            id = expectedId,
-            sku = sku,
-            name = name,
-            version = 0,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now(),
-            createdBy = "system",
-            updatedBy = "system"
-        )
     }
 }
