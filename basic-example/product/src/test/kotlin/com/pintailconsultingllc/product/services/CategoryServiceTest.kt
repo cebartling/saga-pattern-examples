@@ -7,6 +7,7 @@ import io.mockk.every
 import io.mockk.slot
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -19,7 +20,7 @@ import java.util.*
 
 
 @SpringBootTest
-@DisplayName("CategoryService tests")
+@DisplayName("CategoryService unit tests")
 internal class CategoryServiceTest {
 
     @MockkBean
@@ -27,6 +28,9 @@ internal class CategoryServiceTest {
 
     @Autowired
     lateinit var service: CategoryService
+
+    private val expectedId = UUID.randomUUID()
+    private val expectedName = "Foobar"
 
     @Nested
     @DisplayName("getCategoryPage")
@@ -48,81 +52,102 @@ internal class CategoryServiceTest {
     @Nested
     @DisplayName("createCategory")
     inner class CreateCategory {
-        private val expectedName = "Foobar"
-        private val expectedCategory = Category(
-            id = UUID.randomUUID(),
-            name = expectedName,
-            version = 0,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now(),
-            createdBy = "system",
-            updatedBy = "system"
+        private val expectedCategory = createCategoryEntity(
+            name = expectedName
         )
+        private var actualCategory: Category? = null
+
+        @BeforeEach
+        fun doBeforeEachTest() {
+            every { categoryRepository.save(any()) } returns expectedCategory
+
+            actualCategory = service.createCategory(expectedName)
+        }
+
+        @Test
+        fun `should invoke save on the category repository collaborator`() {
+            verify { categoryRepository.save(any()) }
+        }
 
         @Test
         fun `should return a persistent category entity`() {
-            every { categoryRepository.save(any()) } returns expectedCategory
-
-            val actualCategory = service.createCategory(expectedName)
-
-            assertEquals(actualCategory.name, expectedName)
-            verify { categoryRepository.save(any()) }
+            assertEquals(actualCategory?.name, expectedName)
         }
     }
 
     @Nested
     @DisplayName("updateCategory")
     inner class UpdateCategory {
-        private val expectedName = "Foobar"
-        private val expectedId = UUID.randomUUID()
-        private val expectedCategory = Category(
-            id = expectedId,
-            name = "Barfoo",
-            version = 0,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now(),
-            createdBy = "system",
-            updatedBy = "system"
+        private val expectedCategory = createCategoryEntity(
+            name = "Barfoo"
         )
+        private var actualCategory: Category? = null
 
-        @Test
-        fun `should update the name of the category in the database`() {
+        @BeforeEach
+        fun doBeforeEachTest() {
             every { categoryRepository.getOne(expectedId) } returns expectedCategory
             every { categoryRepository.save(any()) } returns expectedCategory
 
-            val actualCategory = service.updateCategory(expectedId, expectedName)
+            actualCategory = service.updateCategory(expectedId, expectedName)
+        }
 
-            assertEquals(actualCategory.name, expectedName)
+        @Test
+        fun `should invoke getOne on the category repository collaborator, retrieving the entity by ID`() {
             verify { categoryRepository.getOne(expectedId) }
+        }
+
+        @Test
+        fun `should invoke save on the category repository collaborator`() {
             verify { categoryRepository.save(any()) }
+        }
+
+        @Test
+        fun `should return a persistent category entity`() {
+            assertEquals(actualCategory?.name, expectedName)
         }
     }
 
     @Nested
     @DisplayName("deleteCategory")
     inner class DeleteCategory {
-        private val expectedId = UUID.randomUUID()
         private val categorySlot = slot<Category>()
-        private val expectedCategory = Category(
+        private val expectedCategory = createCategoryEntity(
+            name = expectedName
+        )
+
+        @BeforeEach
+        fun doBeforeEachTest() {
+            every { categoryRepository.getOne(expectedId) } returns expectedCategory
+            every { categoryRepository.save(capture(categorySlot)) } returns expectedCategory
+
+            service.deleteCategory(expectedId)
+        }
+
+        @Test
+        fun `should invoke getOne on the category repository collaborator, retrieving the entity by ID`() {
+            verify { categoryRepository.getOne(expectedId) }
+        }
+
+        @Test
+        fun `should invoke save on the category repository collaborator`() {
+            verify { categoryRepository.save(any()) }
+        }
+
+        @Test
+        fun `should soft delete the persistent category entity`() {
+            assertTrue(categorySlot.captured.deleted)
+        }
+    }
+
+    private fun createCategoryEntity(name: String): Category {
+        return Category(
             id = expectedId,
-            name = "Barfoo",
+            name = name,
             version = 0,
             createdAt = LocalDateTime.now(),
             updatedAt = LocalDateTime.now(),
             createdBy = "system",
             updatedBy = "system"
         )
-
-        @Test
-        fun `should soft delete the persistent category entity`() {
-            every { categoryRepository.getOne(expectedId) } returns expectedCategory
-            every { categoryRepository.save(capture(categorySlot)) } returns expectedCategory
-
-            service.deleteCategory(expectedId)
-
-            assertTrue(categorySlot.captured.deleted)
-            verify { categoryRepository.getOne(expectedId) }
-            verify { categoryRepository.save(any()) }
-        }
     }
 }

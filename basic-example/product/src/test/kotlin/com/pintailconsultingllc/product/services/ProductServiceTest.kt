@@ -20,7 +20,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @SpringBootTest
-@DisplayName("ProductService tests")
+@DisplayName("ProductService unit tests")
 internal class ProductServiceTest {
 
     @MockkBean
