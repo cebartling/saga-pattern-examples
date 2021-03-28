@@ -3,14 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.4.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-//    id("com.github.johnrengelman.processes") version "0.5.0"
-//    id("org.springdoc.openapi-gradle-plugin") version "1.3.0"
     kotlin("jvm") version "1.4.30"
     kotlin("plugin.spring") version "1.4.30"
     kotlin("plugin.jpa") version "1.4.30"
 }
 
-group = "com.pintailconsulltingllc"
+group = "com.pintailconsultingllc"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
