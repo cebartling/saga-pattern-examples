@@ -15,8 +15,6 @@ import java.util.*
 class ProductService(
     private val productRepository: ProductRepository
 ) {
-
-
     /**
      * Retrieves a page of product entities.
      *
