@@ -38,11 +38,14 @@ dependencies {
     implementation("com.opencsv:opencsv:5.4")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-//    runtimeOnly("io.micrometer:micrometer-registry-datadog")
     runtimeOnly("org.postgresql:postgresql")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(module = "mockito-core")
+    }
     testImplementation("org.springframework.kafka:spring-kafka-test")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("com.ninja-squad:springmockk:3.0.1")
 }
 
 tasks.withType<KotlinCompile> {

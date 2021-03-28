@@ -14,18 +14,14 @@ data class CategoryDTO(
     val createdBy: String,
     val updatedBy: String,
 ) {
-    companion object {
-        fun toDataTransferObject(entity: Category): CategoryDTO {
-            return CategoryDTO(
-                id = entity.id,
-                version = entity.version,
-                name = entity.name,
-                deleted = entity.deleted,
-                createdAt = entity.createdAt,
-                updatedAt = entity.updatedAt,
-                createdBy = entity.createdBy,
-                updatedBy = entity.updatedBy
-            )
-        }
-    }
+    constructor(entity: Category): this(
+        id = entity.id,
+        version = entity.version,
+        name = entity.name,
+        deleted = entity.deleted,
+        createdAt = entity.createdAt,
+        updatedAt = entity.updatedAt,
+        createdBy = entity.createdBy,
+        updatedBy = entity.updatedBy
+    )
 }

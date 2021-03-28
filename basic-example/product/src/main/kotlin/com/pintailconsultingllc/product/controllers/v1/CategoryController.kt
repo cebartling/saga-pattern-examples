@@ -36,7 +36,7 @@ class CategoryController(val categoryService: CategoryService) {
     @GetMapping
     fun getCategoriesPage(
         pageable: Pageable
-    ) = ResponseEntity.ok(categoryService.getCategoryPage(pageable).map { CategoryDTO.toDataTransferObject(it) })
+    ) = ResponseEntity.ok(categoryService.getCategoryPage(pageable).map { CategoryDTO(it) })
 
     @Operation(summary = "Create a new category.")
     @ApiResponses(

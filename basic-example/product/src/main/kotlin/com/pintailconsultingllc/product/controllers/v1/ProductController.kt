@@ -36,7 +36,7 @@ class ProductController(val productService: ProductService) {
     @GetMapping
     fun getProductsPage(
         pageable: Pageable
-    ) = ResponseEntity.ok(productService.getProductPage(pageable).map { ProductDTO.toDataTransferObject(it) })
+    ) = ResponseEntity.ok(productService.getProductPage(pageable).map { ProductDTO(it) })
 
     @Operation(summary = "Create a new product.")
     @ApiResponses(

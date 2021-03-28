@@ -6,9 +6,19 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.*
 
+/**
+ * Service layer for retrieving and persisting product category information.
+ */
 @Service
-class CategoryService(val categoryRepository: CategoryRepository) {
+class CategoryService(
+    private val categoryRepository: CategoryRepository
+) {
 
+    /**
+     * Retrieves a page of category entities.
+     *
+     * @return [Pageable] of [Category] entities.
+     */
     fun getCategoryPage(pageable: Pageable) = categoryRepository.findAll(pageable)
 
     fun createCategory(name: String): Category {
