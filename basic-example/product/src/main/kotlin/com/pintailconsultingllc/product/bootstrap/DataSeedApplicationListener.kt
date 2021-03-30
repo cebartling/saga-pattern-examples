@@ -9,13 +9,15 @@ private val logger = KotlinLogging.logger {}
 
 @Component
 class DataSeedApplicationListener(
-    val categoryDataSeed: CategoryDataSeed
+    val categoryDataSeed: CategoryDataSeed,
+    val productDataSeed: ProductDataSeed
 ) : ApplicationListener<ContextRefreshedEvent> {
 
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
         logger.info { "===> START: Data seeding" }
         val context = DataSeedContext()
         categoryDataSeed.seed(context)
+        productDataSeed.seed(context)
         logger.info { "===> END: Data seeding" }
     }
 }
