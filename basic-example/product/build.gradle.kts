@@ -39,6 +39,7 @@ dependencies {
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core")
     }
@@ -46,6 +47,9 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("io.mockk:mockk:1.10.6")
     testImplementation("com.ninja-squad:springmockk:3.0.1")
+//    testImplementation("org.spekframework.spek2:spek-dsl-jvm:2.0.15")
+
+//    testRuntimeOnly("org.spekframework.spek2:spek-runner-junit5:2.0.15")
 }
 
 jacoco {
@@ -92,6 +96,9 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+//    useJUnitPlatform {
+//        includeEngines("spek2")
+//    }
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 }
 

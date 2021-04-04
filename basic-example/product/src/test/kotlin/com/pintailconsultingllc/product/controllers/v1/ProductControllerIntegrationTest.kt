@@ -1,29 +1,40 @@
 package com.pintailconsultingllc.product.controllers.v1
 
+import com.pintailconsultingllc.product.jpa.entities.Product
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.core.ParameterizedTypeReference
+import org.springframework.data.domain.PageImpl
+import org.springframework.http.ResponseEntity
+
 
 @DisplayName("ProductController integration tests")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ProductControllerIntegrationTest(
-    @Autowired val restTemplate: TestRestTemplate
-) {
-//    @Nested
-//    @DisplayName("GET /api/v1/products")
-//    inner class GetProductsPage {
-//        private var entity: ResponseEntity<Page<Product>>? = null
-//
+//@ActiveProfiles("test")
+class ProductControllerIntegrationTest {
+
+    @Autowired
+    lateinit var restTemplate: TestRestTemplate
+
+    val pageProductResponseType = object : ParameterizedTypeReference<PageImpl<Product?>?>() {}
+
+    @Nested
+    @DisplayName("GET /api/v1/products")
+    inner class GetProductsPage {
+        private var entity: ResponseEntity<PageImpl<Product>>? = null
+
 //        @BeforeEach
 //        fun doBeforeEachTest() {
-//            entity = restTemplate.getForEntity<Product>("/api/v1/products", <Page<Product>>,"page", 0, "size", 100)
+//            val uriVariables = mapOf("size" to 100, "page" to 0)
+//            entity = restTemplate.getForEntity("/api/v1/products", pageProductResponseType, uriVariables)
 //        }
 //
 //        @Test
 //        fun `should respond with a 200 (OK) status code`() {
-//
 //            assertThat(entity?.statusCode).isEqualTo(HttpStatus.OK)
 //        }
-//    }
+    }
 }
