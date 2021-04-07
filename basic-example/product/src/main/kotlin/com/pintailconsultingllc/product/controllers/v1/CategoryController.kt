@@ -12,9 +12,16 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import java.net.URI
-import java.util.*
+import java.util.UUID
 
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -31,11 +38,13 @@ class CategoryController(val categoryService: CategoryService) {
                     ))]
             ),
             ApiResponse(responseCode = "400", description = "Bad request", content = [Content()]),
-            ApiResponse(responseCode = "404", description = "Did not find any product categories", content = [Content()])]
+            ApiResponse(responseCode = "404",
+                description = "Did not find any product categories",
+                content = [Content()])]
     )
     @GetMapping
     fun getCategoriesPage(
-        pageable: Pageable
+        pageable: Pageable,
     ) = ResponseEntity.ok(categoryService.getCategoryPage(pageable).map { CategoryDTO(it) })
 
     @Operation(summary = "Create a new category.")
@@ -53,7 +62,7 @@ class CategoryController(val categoryService: CategoryService) {
     )
     @PostMapping
     fun createCategory(
-        @RequestBody categoryInput: CategoryInput
+        @RequestBody categoryInput: CategoryInput,
     ): ResponseEntity<CategoryDTO> {
         val category = categoryService.createCategory(categoryInput.name)
         val location = URI("/api/v1/categories/${category.id}")
@@ -71,7 +80,7 @@ class CategoryController(val categoryService: CategoryService) {
     @PutMapping("/{id}")
     fun updateCategory(
         @PathVariable id: UUID,
-        @RequestBody categoryInput: CategoryInput
+        @RequestBody categoryInput: CategoryInput,
     ): ResponseEntity<CategoryDTO> {
         categoryService.updateCategory(id, categoryInput.name)
         return ResponseEntity.noContent().build()
@@ -86,7 +95,7 @@ class CategoryController(val categoryService: CategoryService) {
     )
     @DeleteMapping("/{id}")
     fun deleteCategory(
-        @PathVariable id: UUID
+        @PathVariable id: UUID,
     ): ResponseEntity<CategoryDTO> {
         categoryService.deleteCategory(id)
         return ResponseEntity.noContent().build()

@@ -1,19 +1,25 @@
 package com.pintailconsultingllc.product.jpa.entities
 
-
+import java.time.LocalDateTime
+import java.util.UUID
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.EntityListeners
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.ManyToMany
+import javax.persistence.Table
+import javax.persistence.Version
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import java.time.LocalDateTime
-import java.util.*
-import javax.persistence.*
 
 @Entity
 @EntityListeners(AuditingEntityListener::class)
 @Table(name = "categories")
-class Category(
+data class Category(
     @Id @GeneratedValue
     val id: UUID = UUID.randomUUID(),
 
@@ -42,5 +48,5 @@ class Category(
     var updatedBy: String = "system",
 
     @ManyToMany
-    var products: Set<Product> = emptySet()
+    var products: Set<Product> = emptySet(),
 )

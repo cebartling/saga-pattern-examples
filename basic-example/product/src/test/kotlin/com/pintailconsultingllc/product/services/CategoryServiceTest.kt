@@ -35,7 +35,7 @@ internal class CategoryServiceTest {
 
     @Nested
     @DisplayName("getCategoryPage")
-    inner class GetCategoryPage {
+    inner class GetCategoryPageTests {
         private val expectedPageable = Pageable.unpaged()
         private val expectedPage = PageImpl(emptyList<Category>())
 
@@ -52,7 +52,7 @@ internal class CategoryServiceTest {
 
     @Nested
     @DisplayName("createCategory")
-    inner class CreateCategory {
+    inner class CreateCategoryTests {
         private val expectedCategory = createCategoryEntity(
             id = expectedId,
             name = expectedName
@@ -79,7 +79,7 @@ internal class CategoryServiceTest {
 
     @Nested
     @DisplayName("updateCategory")
-    inner class UpdateCategory {
+    inner class UpdateCategoryTests {
         private val expectedCategory = createCategoryEntity(
             id = expectedId,
             name = "Barfoo"
@@ -112,7 +112,7 @@ internal class CategoryServiceTest {
 
     @Nested
     @DisplayName("deleteCategory")
-    inner class DeleteCategory {
+    inner class DeleteCategoryTests {
         private val categorySlot = slot<Category>()
         private val expectedCategory = createCategoryEntity(
             id = expectedId,

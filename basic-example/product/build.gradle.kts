@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version "2.4.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("jacoco")
+    id("io.gitlab.arturbosch.detekt").version("1.16.0")
     kotlin("jvm") version "1.4.30"
     kotlin("plugin.spring") version "1.4.30"
     kotlin("plugin.jpa") version "1.4.30"
@@ -15,6 +16,7 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
+    jcenter() // jcenter is needed https://github.com/Kotlin/kotlinx.html/issues/81
 }
 
 dependencies {

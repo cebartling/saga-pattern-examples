@@ -21,22 +21,18 @@ class ProductDataSeed(
 
     override fun seed(dataSeedContext: DataSeedContext) {
         logger.info { "=====> START - Seeding products" }
-        try {
-            if (csv != null) {
-                val csvReaderHeaderAware = CSVReaderHeaderAware(FileReader(csv!!.file))
-                var values: MutableMap<String, String>? = csvReaderHeaderAware.readMap()
-                while (values != null) {
-                    val found = values["name"]?.let { productRepository.findByName(it) }
-                    if (found == null) {
-                        val product = Product(name = values["name"]!!, sku = values["sku"]!!)
-                        productRepository.save(product)
-                        logger.info { "  Inserted product: ${product.name}" }
-                    }
-                    values = csvReaderHeaderAware.readMap()
+        if (csv != null) {
+            val csvReaderHeaderAware = CSVReaderHeaderAware(FileReader(csv!!.file))
+            var values: MutableMap<String, String>? = csvReaderHeaderAware.readMap()
+            while (values != null) {
+                val found = values["name"]?.let { productRepository.findByName(it) }
+                if (found == null) {
+                    val product = Product(name = values["name"]!!, sku = values["sku"]!!)
+                    productRepository.save(product)
+                    logger.info { "  Inserted product: ${product.name}" }
                 }
+                values = csvReaderHeaderAware.readMap()
             }
-        } catch (e: Exception) {
-            throw RuntimeException(e)
         }
         logger.info { "=====> END - Seeding products" }
     }

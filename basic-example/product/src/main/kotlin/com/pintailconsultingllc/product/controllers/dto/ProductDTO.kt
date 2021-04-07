@@ -2,7 +2,7 @@ package com.pintailconsultingllc.product.controllers.dto
 
 import com.pintailconsultingllc.product.jpa.entities.Product
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 data class ProductDTO(
     val id: UUID,
@@ -15,7 +15,7 @@ data class ProductDTO(
     val createdBy: String,
     val updatedBy: String,
 ) {
-    constructor(entity: Product): this(
+    constructor(entity: Product) : this(
         id = entity.id,
         version = entity.version,
         name = entity.name,

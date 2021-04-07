@@ -19,24 +19,21 @@ class CategoryDataSeed(
     @Value("classpath:data/categories.csv")
     var categoriesCsv: Resource? = null
 
+    @Throws(RuntimeException::class)
     override fun seed(dataSeedContext: DataSeedContext) {
         logger.info { "=====> START - Seeding categories" }
-        try {
-            if (categoriesCsv != null) {
-                val csvReaderHeaderAware = CSVReaderHeaderAware(FileReader(categoriesCsv!!.file))
-                var values: MutableMap<String, String>? = csvReaderHeaderAware.readMap()
-                while (values != null) {
-                    val found = values["name"]?.let { categoryRepository.findByName(it) }
-                    if (found == null) {
-                        val category = Category(name = values["name"]!!)
-                        categoryRepository.save(category)
-                        logger.info { "  Inserted category: ${category.name}" }
-                    }
-                    values = csvReaderHeaderAware.readMap()
+        if (categoriesCsv != null) {
+            val csvReaderHeaderAware = CSVReaderHeaderAware(FileReader(categoriesCsv!!.file))
+            var values: MutableMap<String, String>? = csvReaderHeaderAware.readMap()
+            while (values != null) {
+                val found = values["name"]?.let { categoryRepository.findByName(it) }
+                if (found == null) {
+                    val category = Category(name = values["name"]!!)
+                    categoryRepository.save(category)
+                    logger.info { "  Inserted category: ${category.name}" }
                 }
+                values = csvReaderHeaderAware.readMap()
             }
-        } catch (e: Exception) {
-            throw RuntimeException(e)
         }
         logger.info { "=====> END - Seeding categories" }
     }
