@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   product-db:
-    image: postgres:13-alpine
+    image: ${POSTGRES_REPOSITORY}:13-alpine
     hostname: saga-example-db
     container_name: saga-example-db
     restart: always
