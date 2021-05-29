@@ -21,7 +21,7 @@ services:
     ports:
       - 18080:8080
     environment:
-      KEYCLOAK_USER: admin
+      KEYCLOAK_USER: saga-example-admin
       KEYCLOAK_PASSWORD: 687df976df8
 
 volumes:
