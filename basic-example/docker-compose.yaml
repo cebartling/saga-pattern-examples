@@ -13,6 +13,16 @@ services:
     environment:
       POSTGRES_USER: saga-example
       POSTGRES_PASSWORD: saga-example
+  keycloak:
+    image: jboss/keycloak:13.0.1
+    hostname: saga-example-keycloak
+    container_name: saga-example-keycloak
+    restart: always
+    ports:
+      - 18080:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: 687df976df8
 
 volumes:
   db-data:
