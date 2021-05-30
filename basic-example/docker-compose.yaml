@@ -14,7 +14,7 @@ services:
       POSTGRES_USER: saga-example
       POSTGRES_PASSWORD: saga-example
   keycloak:
-    image: jboss/keycloak:13.0.1
+    image: jboss/keycloak:latest
     hostname: saga-example-keycloak
     container_name: saga-example-keycloak
     restart: always
