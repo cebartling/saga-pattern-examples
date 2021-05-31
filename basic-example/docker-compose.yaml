@@ -1,29 +1,21 @@
 version: '3.7'
-services:
-  product-db:
-    image: ${POSTGRES_REPOSITORY}:13-alpine
-    hostname: saga-example-db
-    container_name: saga-example-db
-    restart: always
-    volumes:
-      - ./product/postgresql/init.sh:/docker-entrypoint-initdb.d/0001-initialization.sh
-      - db-data:/var/lib/postgresql/data
-    ports:
-      - 15432:5432
-    environment:
-      POSTGRES_USER: saga-example
-      POSTGRES_PASSWORD: saga-example
-  keycloak:
-    image: jboss/keycloak:latest
-    hostname: saga-example-keycloak
-    container_name: saga-example-keycloak
-    restart: always
-    ports:
-      - 18080:8080
-    environment:
-      KEYCLOAK_USER: saga-example-admin
-      KEYCLOAK_PASSWORD: 687df976df8
 
 volumes:
   db-data:
     driver: local
+
+services:
+  postgres:
+    image: ${POSTGRES_REPOSITORY}:13-alpine
+    container_name: saga-pattern-postgres
+    restart: always
+    volumes:
+      - ./auth/postgresql/init.sh:/docker-entrypoint-initdb.d/0001-initialization.sh
+      - ./product/postgresql/init.sh:/docker-entrypoint-initdb.d/0002-initialization.sh
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 15432:5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
