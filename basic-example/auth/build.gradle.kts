@@ -4,6 +4,9 @@ plugins {
     id("org.springframework.boot") version "2.5.0"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.asciidoctor.convert") version "1.5.8"
+    id("io.gitlab.arturbosch.detekt").version("1.16.0")
+    id("jacoco")
+
     kotlin("jvm") version "1.5.10"
     kotlin("plugin.spring") version "1.5.10"
     kotlin("plugin.jpa") version "1.5.10"
@@ -13,6 +16,12 @@ group = "com.pintailconsultingllc"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
+object DependencyVersions {
+    const val KEYCLOAK_VERSION = "13.0.1"
+    const val INFINISPAN_VERSION = "10.1.8.Final"
+    const val RESTEASY_VERSION = "3.12.1.Final"
+}
+
 repositories {
     mavenCentral()
     maven { url = uri("https://repo.spring.io/snapshot") }
@@ -21,6 +30,7 @@ repositories {
 
 extra["snippetsDir"] = file("build/generated-snippets")
 extra["springCloudVersion"] = "2020.0.3-SNAPSHOT"
+extra["infinispan.version"] = "10.1.8.Final"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -43,11 +53,30 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-kotlin:1.5.5")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.6")
     implementation("com.opencsv:opencsv:5.4")
+    // Keycloak implementation
+    implementation("org.jboss.resteasy:resteasy-jackson2-provider:${DependencyVersions.RESTEASY_VERSION}")
+    implementation(
+        group = "org.keycloak",
+        name = "keycloak-dependencies-server-all",
+        version = DependencyVersions.KEYCLOAK_VERSION,
+        ext = "pom"
+    )
+//    <exclusions>
+//    <exclusion>
+//    <groupId>org.slf4j</groupId>
+//    <artifactId>slf4j-log4j12</artifactId>
+//    </exclusion>
+//    <exclusion>
+//    <groupId>log4j</groupId>
+//    <artifactId>log4j</artifactId>
+//    </exclusion>
+//    </exclusions>
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 //    runtimeOnly("io.micrometer:micrometer-registry-datadog")
-    runtimeOnly("org.postgresql:postgresql")
+//    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("com.h2database:h2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core")
@@ -73,47 +102,47 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-//jacoco {
-//    toolVersion = "0.8.6"
-//    reportsDirectory.set(file("$buildDir/customJacocoReportDir"))
-//}
-//
-//tasks.jacocoTestReport {
-//    reports {
-//        xml.isEnabled = false
-//        csv.isEnabled = false
-//        html.destination = file("${buildDir}/jacocoHtml")
-//    }
-//}
-//
-//tasks.jacocoTestCoverageVerification {
-//    violationRules {
-//        rule {
-//            limit {
-//                minimum = "0.5".toBigDecimal()
-//            }
-//        }
-//
-//        rule {
-//            enabled = false
-//            element = "CLASS"
-//            includes = listOf("org.gradle.*")
-//
-//            limit {
-//                counter = "LINE"
-//                value = "TOTALCOUNT"
-//                maximum = "0.3".toBigDecimal()
-//            }
-//        }
-//    }
-//}
-//
+jacoco {
+    toolVersion = "0.8.6"
+    reportsDirectory.set(file("$buildDir/customJacocoReportDir"))
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = false
+        csv.isEnabled = false
+        html.destination = file("${buildDir}/jacocoHtml")
+    }
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.5".toBigDecimal()
+            }
+        }
+
+        rule {
+            enabled = false
+            element = "CLASS"
+            includes = listOf("org.gradle.*")
+
+            limit {
+                counter = "LINE"
+                value = "TOTALCOUNT"
+                maximum = "0.3".toBigDecimal()
+            }
+        }
+    }
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
-//    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 }
-//
-//tasks.jacocoTestReport {
-//    dependsOn(tasks.test) // tests are required to run before generating the report
-//}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+}
 
