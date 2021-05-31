@@ -15,12 +15,12 @@ Create a `.env` file in this project's root directory, using the appropriate `.e
 #### Starting the services
 
 ```shell
-docker compose up
+docker compose up -d
 ```
 
 #### Stopping the services
 
 ```shell
-docker compose down
+docker compose down -v --remove-orphans --timeout 30
 ```
 
