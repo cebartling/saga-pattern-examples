@@ -12,6 +12,8 @@ services:
     volumes:
       - ./auth/postgresql/init.sh:/docker-entrypoint-initdb.d/0001-initialization.sh
       - ./product/postgresql/init.sh:/docker-entrypoint-initdb.d/0002-initialization.sh
+      - ./inventory/postgresql/init.sh:/docker-entrypoint-initdb.d/0003-initialization.sh
+      - ./ecommerce/postgresql/init.sh:/docker-entrypoint-initdb.d/0004-initialization.sh
       - db-data:/var/lib/postgresql/data
     ports:
       - 15432:5432

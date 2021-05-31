@@ -1,0 +1,8 @@
+#!/bin/bash
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d "$POSTGRES_DB"  <<-EOSQL
+  CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+  CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+  CREATE DATABASE ecommerce;
+  CREATE USER ecommerce WITH ENCRYPTED PASSWORD 'ecommerce';
+  GRANT ALL PRIVILEGES ON DATABASE ecommerce TO ecommerce;
+EOSQL
