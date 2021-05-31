@@ -4,6 +4,9 @@ logging:
     org.springframework: ERROR
     com.pintailconsultingllc.product: ERROR
 
+server:
+  port: 8082
+
 spring:
   application:
     name: "Product catalog microservice"
@@ -37,9 +40,10 @@ springdoc:
 ---
 
 spring:
-  profile: local
   liquibase:
     enabled: true
+  profiles:
+    active: local
 
 
 logging:

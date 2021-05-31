@@ -1,4 +1,4 @@
-# Product catalog service
+# Authentication and authorization service
 
 ## Local development
 
@@ -9,9 +9,9 @@
 ```
 
 ### Environment variables
-- `JDBC_URL=jdbc:postgresql://localhost:15432/product`
-- `JDBC_USERNAME=product`
-- `JDBC_PASSWORD=product`
+- `JDBC_URL=jdbc:postgresql://localhost:15432/auth`
+- `JDBC_USERNAME=auth`
+- `JDBC_PASSWORD=auth`
 
 
 ## OpenAPI documentation

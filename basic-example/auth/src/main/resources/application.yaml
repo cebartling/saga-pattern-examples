@@ -4,6 +4,9 @@ logging:
     org.springframework: ERROR
     com.pintailconsultingllc.auth: ERROR
 
+server:
+  port: 8081
+
 spring:
   application:
     name: "Authentication and authorization microservice"
@@ -37,9 +40,10 @@ springdoc:
 ---
 
 spring:
-  profile: local
   liquibase:
     enabled: true
+  profiles:
+    active: local
 
 
 logging:
