@@ -45,7 +45,7 @@ dependencies {
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
-    runtimeOnly("io.micrometer:micrometer-registry-datadog")
+//    runtimeOnly("io.micrometer:micrometer-registry-datadog")
     runtimeOnly("org.postgresql:postgresql")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
