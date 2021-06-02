@@ -1,4 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: db/changelog/202105302128-changelog.yaml
-

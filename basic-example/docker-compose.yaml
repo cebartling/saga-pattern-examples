@@ -32,3 +32,23 @@ services:
     environment:
       - REDIS_REPLICATION_MODE=master
 
+  keycloak:
+    image: ${KEYCLOAK_IMAGE}
+    container_name: saga-pattern-keycloak
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: postgres
+      DB_USER: postgres
+      DB_SCHEMA: public
+      DB_PASSWORD: postgres
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    ports:
+      - 18080:8080
+      - 18443:8443
+    depends_on:
+      - postgres
+
