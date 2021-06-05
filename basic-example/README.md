@@ -32,3 +32,6 @@ docker compose up -d
 docker compose down -v --remove-orphans --timeout 30
 ```
 
+## References
+
+- [A Quick Guide to Using Keycloak with Spring Boot](https://www.baeldung.com/spring-boot-keycloak): This is a great resource for getting Keycloak configured and integrating Spring Boot with Keycloak.
