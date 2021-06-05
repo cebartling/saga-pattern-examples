@@ -40,6 +40,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-kotlin:1.5.5")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.6")
     implementation("com.opencsv:opencsv:5.4")
+    implementation("org.keycloak:keycloak-spring-boot-starter:13.0.1")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")

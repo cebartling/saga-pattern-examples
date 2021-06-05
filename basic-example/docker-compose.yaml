@@ -24,6 +24,7 @@ services:
 
   redis:
     image: ${REDIS_REPOSITORY}:alpine
+    container_name: saga-pattern-redis
     ports:
       - 16379:6379
 #    volumes:
