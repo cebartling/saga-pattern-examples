@@ -32,6 +32,10 @@ docker compose up -d
 docker compose down -v --remove-orphans --timeout 30
 ```
 
+### Investigating the example
+
+- [Keycloak Administration](http://localhost:18080/auth/) Username/password of `admin`/`Pa55w0rd`
+
 ## References
 
 - [A Quick Guide to Using Keycloak with Spring Boot](https://www.baeldung.com/spring-boot-keycloak): This is a great resource for getting Keycloak configured and integrating Spring Boot with Keycloak.
